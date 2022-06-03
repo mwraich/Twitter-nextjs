@@ -1,4 +1,4 @@
-import Tweet from "components/Tweet.jsx"
+import Tweet from "components/Tweet"
 
 export default function Tweets({ tweets }) {
     if (!tweets) return null
