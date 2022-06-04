@@ -2,7 +2,7 @@ import Image from 'next/image';
 import timeago from 'lib/timeago';
 import Link from 'next/link';
 
-export default function Tweet({ tweet }) {
+export default function Tweet({ tweet, nolink }) {
 	return (
 		<>
 			<div className="mb-4">
@@ -27,11 +27,16 @@ export default function Tweet({ tweet }) {
 											</span>
 										</a>
 									</Link>
+									{nolink ?
+										(<span className='pl-3'>{timeago.format(new Date(tweet.createdAt))}</span>)
+										: (
 									<Link href={`/${tweet.author.name}/status/${tweet.id}`}>
 										<a className="hover:underline pl-3">
 											{`${timeago.format(new Date(tweet.createdAt))}`}
 										</a>
 									</Link>
+										)
+									}
 								</p>
 							</div>
 						</div>
