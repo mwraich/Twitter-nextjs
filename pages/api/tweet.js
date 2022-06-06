@@ -28,16 +28,18 @@ export default async function handler(req, res) {
                }
            }
        })
+       const tweetWithAuthorData = await prisma.tweet.findUnique({
+           where: {
+               id: tweet.id
+           },
+           include: {
+               author: true
+           }
+       })
+       res.json(tweetWithAuthorData)
+       return
     }
 
-    const tweetWithAuthorData = await prisma.tweet.findUnique({
-        where: {
-            id: tweet.id
-        },
-        include: {
-            author: true
-        }
-    })
 
     if (req.method === 'DELETE') {
         const id = req.body.id
@@ -60,6 +62,6 @@ export default async function handler(req, res) {
         res.status(200).end()
         return
     }   
-    res.json(tweetWithAuthorData)
+    res.end()
     return
 }
